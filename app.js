@@ -20,21 +20,21 @@ app.get ('/', (req, res) => {
         client.query('SELECT * FROM tb_projects', (err, result) => {
             if (err) throw err
             let data = result.rows
-
-            // data = data.map(function (item) {
-            //     return {
-            //         ...item,
-            //         projectName: item.name,
-            //         description: item.description.slice(0, 150) + '.....',
-            //         sDate: item.sDate,
-            //         eDate: item.eDate,
-            //         duration: abtDuration(item.startDate, item.eDate),
-            //         react: item.react,
-            //         nextjs: item.nextjs,
-            //         javascript: item.javascript,
-            //         vuejs: item.vuejs
-            //     }
-            // })
+            
+            data = data.map(function (item) {
+                return {
+                    title: item.title,
+                    description: item.description.slice(0, 150) + '.....',
+                    author: item.author,
+                    sDate: item.sDate,
+                    eDate: item.eDate,
+                    duration: abtDuration(item.sDate, item.eDate),
+                    techjs: item.techjs,
+                    techreact: item.techreact,
+                    technode: item.technode,
+                    techvue: item.techvue
+                }
+            })
             
             res.render('index', { blogs: data })
         })
